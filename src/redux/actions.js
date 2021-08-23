@@ -1,4 +1,4 @@
-import { CREATE_POST, VIEW_ALERT } from "./types";
+import { CREATE_POST, FETCH_POSTS, HIDE_LOADER, SHOW_LOADER } from "./types";
 
 export const createPost = (payload) => {
     console.log("payload: ", payload, `, action: `, CREATE_POST)
@@ -8,10 +8,37 @@ export const createPost = (payload) => {
     }
 }
 
-export const viewAlert = (payload) => {
-    console.log("payload: ", payload, `, action: `, VIEW_ALERT)
+export const showLoader = () => {
     return {
-        type: VIEW_ALERT,
-        payload: payload
+        type: SHOW_LOADER
     }
 }
+
+export const hideLoader = () => {
+    return {
+        type: HIDE_LOADER
+    }
+}
+
+// jsonplaceholder site that sends mock json data
+export const fetchPosts = (payload) => {
+    return async (dispatch) => {
+        dispatch(showLoader())
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
+        const json = await response.json()
+        setTimeout(() => {
+            dispatch({
+                type: FETCH_POSTS,
+                payload: json
+            })
+            dispatch(hideLoader())
+        }, 2000)
+        // dispatch({
+        //     type: FETCH_POSTS,
+        //     payload: json
+        // })
+        // dispatch(hideLoader()) 
+    }
+}
+
+

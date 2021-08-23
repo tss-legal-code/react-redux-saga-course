@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 // "write" to redux
 import { useDispatch } from "react-redux"
+
 // redux actions
 import { createPost } from '../redux/actions'
 
@@ -29,6 +30,10 @@ const PostForm = () => {
     const submitHandler = (event) => {
         event.preventDefault()
         const title = tempState.title
+        if (!title.trim()) {
+            return
+        }
+
         const newPost = {
             title: title, 
             id: Date.now().toString()
@@ -55,7 +60,6 @@ const PostForm = () => {
         </form >
     )
 }
-
 
 // "mapDispatchToProps" did not work, reason unknown, 
 // therefore no errors reported on run

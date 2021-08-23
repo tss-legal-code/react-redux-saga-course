@@ -6,7 +6,7 @@ const Posts = ({ post }) => {
         <div className="card">
             <div className="card-body">
                 <div className="card-title">
-                    <h2>Title here {post.title}</h2>
+                    <h2>{post.title}</h2>
             </div>
         </div>
         </div >

@@ -4,8 +4,6 @@ import { useSelector } from "react-redux"
 // children-nodes
 import Post from './Post'
 
-            
-
 const Posts = () => {
     //
     // takes no props
