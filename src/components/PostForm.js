@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 
 // redux actions
-import { createPost, hideAlert, showAlert } from '../redux/actions'
+import { createPost, showAlert } from '../redux/actions'
 
 //children
 import AlertCard from "./AlertCard"

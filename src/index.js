@@ -11,16 +11,19 @@ import rootReducer from './redux/rootReducer';
 
 // redux middleware
 import thunk from "redux-thunk"
+import { forbiddenWordsMiddleware } from './redux/middleware';
 
 // my components
 import App from './App';
+
 
 // CREATE STORE
 const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(
-      thunk
+      thunk,
+      forbiddenWordsMiddleware
     ),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
