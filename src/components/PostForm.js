@@ -2,18 +2,23 @@
 import { useState } from 'react'
 
 // "write" to redux
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 // redux actions
-import { createPost } from '../redux/actions'
+import { createPost, hideAlert, showAlert } from '../redux/actions'
 
-             
+//children
+import AlertCard from "./AlertCard"
+
+
 const PostForm = () => {
     // takes no props
     //    --> uses redux hooks
     //      --> "writes" to redux    
-    const dispatch = useDispatch() 
-    
+    const dispatch = useDispatch()
+
+
+
 
     // initial temp vars
     const [tempState, setTempState] = useState({ title: "" })
@@ -26,24 +31,33 @@ const PostForm = () => {
         }))
     }
 
+    // alert uses data from store
+    const alertCard = useSelector(state => state.app.alert)
+
     // event handler for form
     const submitHandler = (event) => {
         event.preventDefault()
+
         const title = tempState.title
+
         if (!title.trim()) {
-            return
+            // dispatch AlertCard message to data store 
+            return dispatch(showAlert('post title should contain some text in order to post it'))
         }
 
         const newPost = {
-            title: title, 
+            title: title,
             id: Date.now().toString()
         }
         setTempState({ title: "" })
-        dispatch(createPost(newPost))        
+        dispatch(createPost(newPost))
     }
 
     return (
-        < form onSubmit={submitHandler} >
+        <form onSubmit={submitHandler} >
+
+            {alertCard && <AlertCard text={alertCard} />}
+
             <div className="form-group">
                 <label htmlFor="title" className="form-label" >Post title</label>
                 <input
